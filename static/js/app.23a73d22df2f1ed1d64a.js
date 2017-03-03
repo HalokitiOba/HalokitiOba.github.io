@@ -30804,7 +30804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('/api/v2/movie/coming_soon').then(function (response) {
+      this.$ajax.get('https://api.douban.com/v2/movie/coming_soon').then(function (response) {
         if (response.status == 200) {
           _this.show = true;
           __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
@@ -30851,7 +30851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var vm = this;
       __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('/api/v2/movie/subject/' + this.$route.params.id).then(function (response) {
+      this.$ajax.get('https://api.douban.com/v2/movie/subject/' + this.$route.params.id).then(function (response) {
         if (response.status == 200) {
           _this.show = true;
           __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
@@ -30899,7 +30899,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('/api/v2/movie/in_theaters', { cout: 10, start: 0 }).then(function (response) {
+      this.$ajax.get('https://api.douban.com/v2/movie/in_theaters', { cout: 10, start: 0 }).then(function (response) {
         if (response.status == 200) {
           _this.show = true;
           __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
@@ -31057,7 +31057,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var vm = this;
       __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('/api/v2/movie/top250', { count: 10, start: 0 }).then(function (response) {
+      this.$ajax.get('https://api.douban.com/v2/movie/top250', { count: 10, start: 0 }).then(function (response) {
         if (response.status == 200) {
           _this.show = true;
           __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
