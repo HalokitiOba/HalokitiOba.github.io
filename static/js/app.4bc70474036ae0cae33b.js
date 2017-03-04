@@ -30924,8 +30924,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       selected: false,
       show: false,
       count: 10,
-      start: 1,
-      data: ["http://img7.doubanio.com/view/movie_poster_cover/lpst/public/p2429713841.jpg", "http://img7.doubanio.com/view/movie_poster_cover/lpst/public/p2429713841.jpg", "http://img7.doubanio.com/view/movie_poster_cover/lpst/public/p2429713841.jpg"]
+      start: 1
     };
   },
   created: function created() {
@@ -30933,20 +30932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    getData: function getData() {
-      var _this = this;
-
-      __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get("/api/v2/movie/in_theaters", { count: 100, start: 1 }).then(function (response) {
-        if (response.status == 200) {
-          _this.show = true;
-          __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
-          console.log(response.data.subjects);
-        }
-      }, function (response) {
-        console.error(response);
-      });
-    }
+    getData: function getData() {}
   },
   watch: {
     '$route': 'getData'
@@ -32798,7 +32784,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('mt-swipe-item', [_c('img', {
       staticClass: "banner",
       staticStyle: {
-        "background": "#eee"
+        "background": "#eee",
+        "width": "100%",
+        "height": "10rem"
       },
       attrs: {
         "alt": ""
@@ -35486,6 +35474,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_mint_ui___default.a);
 
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.config.debug = true;
 __WEBPACK_IMPORTED_MODULE_2__router__["a" /* default */].beforeEach(function (to, from, next) {
   console.info(__WEBPACK_IMPORTED_MODULE_7_jquery___default()('body'));
   next();
