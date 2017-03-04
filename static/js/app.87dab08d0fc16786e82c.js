@@ -19553,7 +19553,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 /* harmony default export */ __webpack_exports__["a"] = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
   mode: 'history',
   routes: [{
-    path: '/home',
+    path: '/',
     name: 'main',
     component: __WEBPACK_IMPORTED_MODULE_2_components_main___default.a
   }, {
@@ -19609,7 +19609,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 
 /* harmony default export */ __webpack_exports__["a"] = {
   getData: function getData(api) {
-    Vue.axios.get(api).then(function (response) {
+    this.axios.get(api).then(function (response) {
       console.log(response.data);
     });
   }
@@ -30804,7 +30804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('https://api.douban.com/v2/movie/coming_soon').then(function (response) {
+      this.$ajax.get('/api/v2/movie/coming_soon').then(function (response) {
         if (response.status == 200) {
           _this.show = true;
           __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
@@ -30851,7 +30851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var vm = this;
       __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('https://api.douban.com/v2/movie/subject/' + this.$route.params.id).then(function (response) {
+      this.$ajax.get('/api/v2/movie/subject/' + this.$route.params.id).then(function (response) {
         if (response.status == 200) {
           _this.show = true;
           __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
@@ -30886,33 +30886,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       msg: 'hotList',
-      show: false,
-      dataList: {}
+      show: true,
+      dataList: [1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, '达达烧猪', '飞飞骚猪'],
+      arr: ['达达烧猪', '飞飞骚猪'],
+      count: 0,
+      bottomStatus: ''
     };
   },
   created: function created() {
-    this.gethotlist();
+    this.loadBottom();
   },
 
   methods: {
-    gethotlist: function gethotlist() {
-      var _this = this;
+    loadBottom: function loadBottom() {
+      this.count += 5;
+      this.gethotlist();
+    },
+    handleBottomChange: function handleBottomChange(status) {
+      this.bottomStatus = status;
+    },
 
-      __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('https://api.douban.com/v2/movie/in_theaters', { cout: 10, start: 0 }).then(function (response) {
-        if (response.status == 200) {
-          _this.show = true;
-          __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
-          console.log(response);
-          _this.dataList = response.data.subjects;
-        }
-      }, function (response) {
-        console.error(response.status);
-      });
+    gethotlist: function gethotlist() {
+      console.log(this.bottomStatus);
+      var vm = this;
+      vm.dataList = vm.dataList.concat(vm.arr);
+      console.log(vm.dataList);
     }
   },
   watch: {
-    '$route': 'gethotlist'
+    '$route': 'loadBottom'
   }
 };
 
@@ -31047,9 +31049,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       dataList: {}
     };
   },
-  created: function created() {
-    this.getTop250List();
-  },
+  created: function created() {},
 
   methods: {
     getTop250List: function getTop250List() {
@@ -31057,7 +31057,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var vm = this;
       __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('https://api.douban.com/v2/movie/top250', { count: 10, start: 0 }).then(function (response) {
+      this.$ajax.get('/api/v2/movie/top250', { count: 10, start: 0 }).then(function (response) {
         if (response.status == 200) {
           _this.show = true;
           __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
@@ -32920,7 +32920,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "enter-active-class": "bounceInLeft",
       "leave-active-class": "bounceOutRight"
     }
-  }, [_c('keep-alive', [_c('router-view')], 1)], 1)], 1)
+  }, [_c('keep-alive', [_c('router-view', {
+    staticClass: "mainBody"
+  })], 1)], 1)], 1)
 },staticRenderFns: []}
 
 /***/ }),
@@ -33124,41 +33126,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return _c('mt-loadmore', {
+    attrs: {
+      "bottom-method": _vm.loadBottom
+    },
+    on: {
+      "bottom-status-change": _vm.handleBottomChange
+    }
+  }, [_c('ul', _vm._l((_vm.dataList), function(item) {
+    return _c('li', {
+      staticStyle: {
+        "text-align": "center",
+        "border": "1px solid #000",
+        "padding": "1rem"
+      }
+    }, [_vm._v(_vm._s(item))])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "mint-loadmore-bottom",
+    slot: "bottom"
+  }, [_c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (this.show),
-      expression: "this.show"
+      value: (_vm.bottomStatus !== 'loading'),
+      expression: "bottomStatus !== 'loading'"
+    }],
+    class: {
+      'rotate': _vm.bottomStatus === 'pull'
+    }
+  }, [_vm._v("↓")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.bottomStatus === 'loading'),
+      expression: "bottomStatus === 'loading'"
     }]
-  }, [_c('p', {
-    staticClass: "title"
-  }, [_vm._v("正在热映")]), _vm._v(" "), _vm._l((_vm.dataList), function(item) {
-    return _c('div', {}, [_c('router-link', {
-      staticClass: "item",
-      attrs: {
-        "to": {
-          name: 'Detail',
-          params: {
-            id: item.id
-          }
-        }
-      }
-    }, [_c('div', {
-      staticClass: "img"
-    }, [_c('img', {
-      attrs: {
-        "src": item.images.medium,
-        "alt": ""
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "content"
-    }, [_c('p', [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c('p', [_c('span', [_vm._v("类型：")]), _vm._l((item.genres), function(key) {
-      return _c('span', [_vm._v(_vm._s(key) + " ")])
-    })], 2), _vm._v(" "), _c('p', [_c('span', [_vm._v("年份：")]), _vm._v(_vm._s(item.year))]), _vm._v(" "), _c('p', [_c('span', [_vm._v("评分：")]), _vm._v(_vm._s(item.rating.average))]), _vm._v(" "), _c('p', [_c('span', [_vm._v("主要演员：")]), _vm._l((item.casts), function(key) {
-      return _c('span', [_vm._v(_vm._s(key.name) + "  ")])
-    })], 2)])])], 1)
-  })], 2)
+  }, [_vm._v("Loading...")])])])
 },staticRenderFns: []}
 
 /***/ }),
@@ -35526,6 +35529,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3_mint_ui___default.a);
 
+__WEBPACK_IMPORTED_MODULE_2__router__["a" /* default */].beforeEach(function (to, from, next) {
+  console.info(__WEBPACK_IMPORTED_MODULE_7_jquery___default()('body'));
+  next();
+});
+__WEBPACK_IMPORTED_MODULE_2__router__["a" /* default */].afterEach(function (route) {});
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$service = __WEBPACK_IMPORTED_MODULE_6__service_dataServer__["a" /* default */];
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$ajax = __WEBPACK_IMPORTED_MODULE_4_axios___default.a;
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
