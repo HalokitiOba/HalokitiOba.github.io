@@ -30800,20 +30800,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    getcomingSonn: function getcomingSonn() {
-      var _this = this;
-
-      __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('/api/v2/movie/coming_soon').then(function (response) {
-        if (response.status == 200) {
-          _this.show = true;
-          __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
-          _this.dataList = response.data.subjects;
-        }
-      }, function (response) {
-        console.error(response.status);
-      });
-    }
+    getcomingSonn: function getcomingSonn() {}
   },
   watch: {
     '$route': 'getcomingSonn'
@@ -30999,20 +30986,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {},
 
   methods: {
-    search: function search(val) {
-      var _this = this;
-
-      __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open();
-      this.$ajax.get('/api/v2/movie/search?q=' + val).then(function (response) {
-        if (response.status == 200) {
-          _this.show = true;
-          __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
-          _this.dataList = response.data.subjects;
-        }
-      }, function (response) {
-        console.err(response.status);
-      });
-    },
+    search: function search(val) {},
     getConsole: function getConsole() {
       console.log('hello');
     }
@@ -31052,21 +31026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {},
 
   methods: {
-    getTop250List: function getTop250List() {
-      var _this = this;
-
-      var vm = this;
-      __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].open('加载中...');
-      this.$ajax.get('/api/v2/movie/top250', { count: 10, start: 0 }).then(function (response) {
-        if (response.status == 200) {
-          _this.show = true;
-          __WEBPACK_IMPORTED_MODULE_0_mint_ui__["Indicator"].close();
-          _this.dataList = response.data.subjects;
-        }
-      }, function (response) {
-        console.error(response.status);
-      });
-    }
+    getTop250List: function getTop250List() {}
   },
   watch: {
     'route': 'getTop250List'
@@ -32836,13 +32796,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, _vm._l((_vm.data), function(item) {
     return _c('mt-swipe-item', [_c('img', {
-      directives: [{
-        name: "lazy",
-        rawName: "v-lazy",
-        value: (item),
-        expression: "item"
-      }],
       staticClass: "banner",
+      staticStyle: {
+        "background": "#eee"
+      },
       attrs: {
         "alt": ""
       }
